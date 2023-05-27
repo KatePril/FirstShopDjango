@@ -21,8 +21,8 @@ from core.views import frontpage, about_us, contacts, questions
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', frontpage),
-    path('about_us/', about_us),
-    path('contacts/', contacts),
-    path('questions/', questions)
+    path('', frontpage, name='index'),
+    path('about_us/', about_us, name="about_us"),
+    path('contacts/', contacts, name="contacts"),
+    path('questions/', questions, name="questions")
 ]
