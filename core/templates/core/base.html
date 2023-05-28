@@ -13,7 +13,7 @@
         <div class="container">
           <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
     
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0" style="display:flex; align-items:center;">
               <li>
                 <a href="{% url 'about_us' %}" class="nav-link px-2 text-white">
                   <i class="fa-solid fa-computer" style="font-size:40px;"></i>
@@ -22,7 +22,7 @@
               <li><a href="{% url 'about_us' %}" class="nav-link px-2 text-white">About us</a></li>
               <li><a href="{% url 'contacts' %}" class="nav-link px-2 text-white">Contacts</a></li>
               <li><a href="{% url 'questions' %}" class="nav-link px-2 text-white">Common questions</a></li>
-              {% comment %} <li><a href="{% url 'blog' %}" class="nav-link px-2 text-white">Blog</a></li> {% endcomment %}
+              <li><a href="{% url 'blog' %}" class="nav-link px-2 text-white">Blog</a></li>
             </ul>
     
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
