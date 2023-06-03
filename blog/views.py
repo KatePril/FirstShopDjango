@@ -20,3 +20,7 @@ def details(request, slug):
         form = CommentForm()
     
     return render(request, 'blog/details.html', {'article': article, 'form': form})
+
+def articles_tag_list(request, tag):
+    articles = Article.objects.filter(tags__name=tag)
+    return render(request, 'blog/articles_tag.html', {'articles': articles, 'title': tag})

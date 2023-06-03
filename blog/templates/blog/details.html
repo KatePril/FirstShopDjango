@@ -7,7 +7,7 @@
     <p>Published on: {{article.created_at}}</p>
     <p>Updated on: {{article.updated_at}}</p>
     <p>Теги: {% for tag in article.tags.all %}
-        <a href='#'>#{{tag.name}}</a> 
+        <a href="{% url 'articles_tag' tag=tag.slug %}">#{{tag.name}}</a> 
         {% endfor %}
     </p>
     <p>Категорія: <a href='#'>{{article.category.name}}</a></p>
