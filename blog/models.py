@@ -5,7 +5,7 @@ class Article(models.Model):
     category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='articles', default=1, verbose_name='Category')
     tags = models.ManyToManyField('Tag', related_name='articles', verbose_name='Tags')
     title = models.CharField(max_length=255, verbose_name='Title')
-    slug = models.SlugField(verbose_name='URL')
+    slug = models.SlugField(verbose_name='URL', unique=True)
     discription = models.TextField(verbose_name='Article discription')
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created on')
@@ -15,14 +15,15 @@ class Article(models.Model):
         return f'{self.title}'
     
 class Category(models.Model):
-    name = models.CharField(max_length=255, verbose_name='Tag name')
-    slug = models.SlugField(verbose_name='URL', default='')
+    name = models.CharField(max_length=255, verbose_name='Category name')
+    slug = models.SlugField(verbose_name='URL', default='', unique=True)
     
     def __str__(self):
         return f'{self.name}'
 
 class Tag(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, verbose_name='Tag name', unique=True)
+    slug = models.SlugField(verbose_name='URL', default='', unique=True)
 
     def __str__(self):
         return f'{self.name}'

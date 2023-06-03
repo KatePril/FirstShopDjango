@@ -7,15 +7,15 @@ def blog(request):
     articles = sorted(Article.objects.all(), key=lambda article: article.updated_at, reverse=True)
     return render(request, 'blog/articles.html', {'articles': articles})
 
-def details(request, id):
-    article = get_object_or_404(Article, id=id)
+def details(request, slug):
+    article = get_object_or_404(Article, slug=slug)
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.article = article
             comment.save()
-            return  redirect('details', id=id)
+            return  redirect('details', slug=slug)
     else:
         form = CommentForm()
     
