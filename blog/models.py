@@ -19,6 +19,7 @@ class Article(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Created on')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Updated on')
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default=DRAFT, verbose_name='Status')
+    image = models.ImageField(upload_to='articles/', verbose_name='Image', blank=True, null=True)
     
     def __str__(self):
         return f'{self.title}'
