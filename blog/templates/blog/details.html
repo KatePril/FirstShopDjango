@@ -6,5 +6,28 @@
     <h1>{{article.title}}</h1>
     <p>Published on: {{article.created_at}}</p>
     <p>Updated on: {{article.updated_at}}</p>
+    <p>Теги: {% for tag in article.tags.all %}
+        <a href='#'>#{{tag.name}}</a> 
+        {% endfor %}
+    </p>
+    <p>Категорія: <a href='#'>{{article.category.name}}</a></p>
     <p>{{article.text|safe}}</p>
+
+    <h3>Add comment</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input class="btn btn-outline-primary" type="submit" value="Add comment">
+    </form>
+
+    <h3>Comments</h3>
+    <hr>
+    {% for comment in article.comments.all %}
+        <p>{{comment.content}}</p>
+        <p><strong>User name:</strong> {{comment.name}}</p>
+        <p><strong>Created on:</strong> {{comment.created_at}}</p>
+        <hr>
+    {% empty %}
+        <p>There no comments here yet</p>
+    {% endfor %}
 {% endblock %}
