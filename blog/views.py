@@ -6,6 +6,7 @@ from blog.models import Article, Tag
 # Create your views here.
 def blog(request):
     articles = sorted(Article.objects.filter(status='active'), key=lambda article: article.updated_at, reverse=True)
+    tags = Tag.objects.all()
     return render(request, 'blog/articles.html', {'articles': articles, 'tags' : tags})
 
 def details(request, slug):
