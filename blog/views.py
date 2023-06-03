@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .forms import CommentForm
@@ -27,6 +28,6 @@ def articles_tag_list(request, tag):
 
 def search(request):
     query = request.GET.get('query', '')
-    articles = Article.objects.filter(title__icontains=query)
+    articles = Article.objects.filter(Q(title__icontains=query) | Q(text__icontains=query) | Q(discription__icontains=query))
     
     return render(request, 'blog/search.html', {'articles': articles, 'title': 'Search through blog', 'query': query})
