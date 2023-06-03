@@ -47,6 +47,11 @@
       </div>
     </div>
 
+    <div class="row align-items-md-stretch mb-5 bg-body-tertiary rounded-3 p-4 mx-auto border border-primary" style="width:90%; display:flex; flex-wrap:wrap; align-items:center; justify-content:center;">
+      {% for tag in tags %}
+        <a href="{% url 'articles_tag' tag=tag.slug %}" class="btn btn-outline-info m-2" style="width:20rem;">{{tag.name}}</a>
+      {% endfor %}
+    </div>
 
     <div class="row align-items-md-stretch bg-body-tertiary rounded-3 p-4 mx-auto border border-primary" style="width:90%;">
       {% block content %}{% endblock %}
