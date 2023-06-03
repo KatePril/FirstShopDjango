@@ -22,5 +22,5 @@ def details(request, slug):
     return render(request, 'blog/details.html', {'article': article, 'form': form})
 
 def articles_tag_list(request, tag):
-    articles = Article.objects.filter(tags__name=tag)
+    articles = Article.objects.filter(tags__slug=tag)
     return render(request, 'blog/articles_tag.html', {'articles': articles, 'title': tag})
