@@ -24,3 +24,9 @@ def details(request, slug):
 def articles_tag_list(request, tag):
     articles = Article.objects.filter(tags__slug=tag)
     return render(request, 'blog/articles_tag.html', {'articles': articles, 'title': tag})
+
+def search(request):
+    query = request.GET.get('query', '')
+    articles = Article.objects.filter(title__icontains=query)
+    
+    return render(request, 'blog/search.html', {'articles': articles, 'title': 'Search through blog', 'query': query})
