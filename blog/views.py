@@ -5,11 +5,11 @@ from .forms import CommentForm
 from blog.models import Article
 # Create your views here.
 def blog(request):
-    articles = sorted(Article.objects.all(), key=lambda article: article.updated_at, reverse=True)
+    articles = sorted(Article.objects.filter(status='active'), key=lambda article: article.updated_at, reverse=True)
     return render(request, 'blog/articles.html', {'articles': articles})
 
 def details(request, slug):
-    article = get_object_or_404(Article, slug=slug)
+    article = get_object_or_404(Article, slug=slug, status='active')
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -23,7 +23,7 @@ def details(request, slug):
     return render(request, 'blog/details.html', {'article': article, 'form': form})
 
 def articles_tag_list(request, tag):
-    articles = Article.objects.filter(tags__slug=tag)
+    articles = Article.objects.filter(tags__slug=tag, status='active')
     return render(request, 'blog/articles_tag.html', {'articles': articles, 'title': tag})
 
 def search(request):
