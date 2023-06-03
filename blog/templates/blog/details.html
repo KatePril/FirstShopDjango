@@ -13,7 +13,7 @@
         <a href="{% url 'articles_tag' tag=tag.slug %}">#{{tag.name}}</a> 
         {% endfor %}
     </p>
-    <p>Категорія: <a href='#'>{{article.category.name}}</a></p>
+    <p>Категорія: <a href="{% url 'articles_category' category=article.category.slug %}">{{article.category.name}}</a></p>
     <p>{{article.text|safe}}</p>
 
     <h3>Add comment</h3>
