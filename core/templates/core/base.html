@@ -25,8 +25,8 @@
               <li><a href="{% url 'blog' %}" class="nav-link px-2 text-white">Blog</a></li>
             </ul>
     
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-              <input type="search" class="form-control form-control-dark text-bg-dark border border-light" placeholder="Search..." aria-label="Search">
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" method="get" action="{% url 'search' %}">
+              <input type="search" class="form-control form-control-dark text-bg-dark border border-light" placeholder="Search..." aria-label="Search" name='query'>
             </form>
     
             <div class="text-end">
