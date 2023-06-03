@@ -23,10 +23,14 @@
     <h3>Comments</h3>
     <hr>
     {% for comment in article.comments.all %}
-        <p>{{comment.content}}</p>
-        <p><strong>User name:</strong> {{comment.name}}</p>
-        <p><strong>Created on:</strong> {{comment.created_at}}</p>
-        <hr>
+        <div class="container-md rounded border border-info p-2 mb-2">
+            <p><strong>User name:</strong> {{comment.name}}</p>
+            <p><strong>Created on:</strong> {{comment.created_at}}</p>
+            <hr class="border border-info">
+            <p>{{comment.content}}</p>
+        </div>
+        
+        
     {% empty %}
         <p>There no comments here yet</p>
     {% endfor %}
