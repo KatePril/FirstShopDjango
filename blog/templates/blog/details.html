@@ -1,11 +1,14 @@
-{% extends 'core/base.html'%}
+{% extends 'blog/blog_base.html'%}
 
 {% block title %} {{article.title}} {% endblock %}
 
 {% block content %}
     {% if article.image%}
-        <img src="{{article.image.url}}" alt="{{article.title}}" class="img-fluid">
+    <div style="display:flex; align-items:center; justify-content:center;">
+        <img src="{{article.image.url}}" alt="{{article.title}}" style="height:500px;" class="rounded-3">
+    </div>
     {% endif %}
+    <hr class="my-3 border border-info">
     <h1>{{article.title}}</h1>
     <p>Published on: {{article.created_at}}</p>
     <p>Updated on: {{article.updated_at}}</p>
