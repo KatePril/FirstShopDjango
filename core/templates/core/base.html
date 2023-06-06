@@ -21,7 +21,7 @@
               </li>
               <li><a href="{% url 'about_us' %}" class="nav-link px-2 text-white">About us</a></li>
               <li><a href="{% url 'contacts' %}" class="nav-link px-2 text-white">Contacts</a></li>
-              <li><a href="{% url 'questions' %}" class="nav-link px-2 text-white">Common questions</a></li>
+              <li><a href="{% url 'questions' %}" class="nav-link px-2 text-white">FAQs</a></li>
               <li><a href="{% url 'blog' %}" class="nav-link px-2 text-white">Blog</a></li>
             </ul>
     
@@ -47,21 +47,15 @@
       </div>
     </div>
 
-    <div class="row align-items-md-stretch mb-5 bg-body-tertiary rounded-3 p-4 mx-auto border border-primary" style="width:90%; display:flex; flex-wrap:wrap; align-items:center; justify-content:center;">
-      <h1>Tags</h1>
-      <hr class="border border-primary">
-      {% for category in categories %}
-        <a href="{% url 'articles_category' category=category.slug %}" class="btn btn-outline-info m-2" style="width:20rem;">{{category.name}}</a>
-      {% endfor %}
-    </div>
+    {% block category %}{% endblock %}
 
-    <div class="row align-items-md-stretch mb-5 bg-body-tertiary rounded-3 p-4 mx-auto border border-info" style="width:90%; display:flex; flex-wrap:wrap; align-items:center; justify-content:center;">
+    {% comment %} <div class="row align-items-md-stretch mb-5 bg-body-tertiary rounded-3 p-4 mx-auto border border-info" style="width:90%; display:flex; flex-wrap:wrap; align-items:center; justify-content:center;">
       <h1>Tags</h1>
       <hr class="border border-info">
       {% for tag in tags %}
         <a href="{% url 'articles_tag' tag=tag.slug %}" class="btn btn-outline-primary m-2" style="width:20rem;">{{tag.name}}</a>
       {% endfor %}
-    </div>
+    </div> {% endcomment %}
 
     <div class="row align-items-md-stretch bg-body-tertiary rounded-3 p-4 mx-auto border border-primary" style="width:90%;">
       {% block content %}{% endblock %}
