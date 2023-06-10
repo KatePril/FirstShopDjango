@@ -22,12 +22,14 @@ from django.conf import settings
 from core.views import about_us, contacts, questions
 from blog.views import blog, details
 from blog.urls import urlpatterns as blog_urls
+from django.contrib.auth import urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', about_us, name="about_us"),
+    path('', about_us, name="index"),
     path('contacts/', contacts, name="contacts"),
     path('questions/', questions, name="questions"),
-    # path('blog/', blog, name='blog'),
-    path('blog/', include(blog_urls))
+    path('blog/', include(blog_urls)),
+    path('members/', include('members.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
