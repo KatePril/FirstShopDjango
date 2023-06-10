@@ -8,8 +8,23 @@
         <img src="{{article.image.url}}" alt="{{article.title}}" style="height:500px;" class="rounded-3">
     </div>
     {% endif %}
+    {%if user.username == article.author.username %}
+        <hr class="my-3 border border-info">
+        {% comment %} TODO: Кнопки редагування і видалення {% endcomment %}
+        {% comment %} <a href="{% url 'articles_edit' article.slug %}">Редагувати</a>
+        <a href="{% url 'articles_delete' article.slug %}">Видалити</a> {% endcomment %}
+        <div class="row">
+            <div class="col d-grid">
+                <a class="btn btn-outline-info" href="">Редагувати</a>
+            </div>
+            <div class="col d-grid">
+                <a class="btn btn-outline-info" href="">Видалити</a>
+            </div>
+          </div>
+    {% endif %}
     <hr class="my-3 border border-info">
     <h1>{{article.title}}</h1>
+    <p>Автор: {{article.author.username}}</p>
     <p>Published on: {{article.created_at}}</p>
     <p>Updated on: {{article.updated_at}}</p>
     <p>Теги: {% for tag in article.tags.all %}
