@@ -1,8 +1,9 @@
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
-from .forms import CommentForm
+from .forms import CommentForm, ArticleForm
 from blog.models import Article, Tag, Category
 # Create your views here.
 
@@ -51,3 +52,40 @@ def search(request):
     tags = Tag.objects.all()
     categories = Category.objects.all()
     return render(request, 'blog/search.html', {'articles': articles, 'title': 'Search through blog', 'query': query, 'tags' : tags, 'categories': categories})
+
+@login_required()
+def create(request):
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, request.FILES)
+        
+        if form.is_valid():
+            article = form.save(commit=False)
+            article.author = request.user
+            article.save()
+            messages.add_message(request, messages.INFO, 'Article created')
+            return redirect('details', slug=article.slug)
+    else:
+        form = ArticleForm()
+    
+    return render(request, 'blog/create.html', {'form': form, 'title' : 'Article creation'})
+
+@login_required()
+def update(request, slug):
+    article = get_object_or_404(Article, slug=slug, author=request.user)
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, request.FILES, instance=article)
+        
+        if form.is_valid():
+            article = form.save()
+            messages.add_message(request, messages.INFO, 'Article updated')
+            return redirect('details', slug=article.slug)
+    else:
+        form = ArticleForm(instance=article)
+    return render(request, 'blog/update.html', {'form': form, 'title': 'Article edit'})
+
+@login_required()
+def delete(request, slug):
+    article = get_object_or_404(Article, slug=slug, author=request.user)
+    article.delete()
+    messages.add_message(request, messages.INFO, 'Article deleted')
+    return redirect('blog')
