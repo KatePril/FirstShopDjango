@@ -2,6 +2,11 @@
 
 {% block content %}
     <h1>Articles</h1>
+    <div class='d-grid'>
+        <hr class="border border-primary">
+        <a class="btn btn-outline-info" href="{% url 'create' %}">Create</a>
+        <hr class="border border-primary">
+    </div>
     <div class="row">
         <div class="col">
             <div class="row row-cols-2 g-4">
@@ -17,7 +22,13 @@
                                 <h5 class="card-title">{{article.title}}</h5>
                                 <p class="card-subtitle mb-2 text-muted">Published {{article.created_at | timesince}} ago</p>
                                 <p class="card-text">{{article.description}}</p>
-                                <a href="{% url 'details' article.slug %}" class="card-link">See more</a>
+                                <div class="row">
+                                    <a href="{% url 'details' article.slug %}" class="btn btn-outline-info col mx-1">See more</a>
+                                    {% if user.is_authenticated and user == article.author %}
+                                        <a href="{% url 'articles_update' article.slug %}" class="btn btn-outline-primary col mx-1">Update</a>
+                                        <a href="{% url 'articles_delete' article.slug %}" class="btn btn-outline-danger col mx-1">Delete</a>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                     </div>
