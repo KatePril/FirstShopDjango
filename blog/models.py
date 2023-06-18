@@ -1,6 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-# Create your models here.
+# Create your models here
 class Article(models.Model):
     ACTIVE = 'active'
     DRAFT = 'draft'
@@ -10,6 +11,7 @@ class Article(models.Model):
         (DRAFT, 'Draft')
     )
     
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='articles', verbose_name='Author', default=1)
     category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='articles', default=1, verbose_name='Category')
     tags = models.ManyToManyField('Tag', related_name='articles', verbose_name='Tags')
     title = models.CharField(max_length=255, verbose_name='Title')
