@@ -2,10 +2,16 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.paginator import Paginator
 
 from .forms import CommentForm, ArticleForm
 from blog.models import Article, Tag, Category
 # Create your views here.
+
+def get_page_articles(request, articles, pages_num):
+    paginator = Paginator(articles, pages_num)
+    page_number = request.GET.get("page")
+    return paginator.get_page(page_number)
 
 def blog(request):
     if not request.user.is_authenticated:
@@ -13,7 +19,7 @@ def blog(request):
     articles = sorted(Article.objects.filter(status='active'), key=lambda article: article.updated_at, reverse=True)
     tags = Tag.objects.all()
     categories = Category.objects.all()
-    return render(request, 'blog/articles.html', {'articles': articles, 'tags' : tags, 'categories': categories})
+    return render(request, 'blog/articles.html', {'page_articles': get_page_articles(request, articles, 4), 'tags' : tags, 'categories': categories})
 
 @login_required()
 def details(request, slug):
@@ -36,14 +42,14 @@ def articles_tag_list(request, tag):
     articles = Article.objects.filter(tags__slug=tag, status='active')
     tags = Tag.objects.all()
     categories = Category.objects.all()
-    return render(request, 'blog/articles_filter.html', {'articles': articles, 'title': tag, 'tags' : tags, 'filter': 'tag', 'categories': categories})
+    return render(request, 'blog/articles_filter.html', {'page_articles': get_page_articles(request, articles), 'title': tag, 'tags' : tags, 'filter': 'tag', 'categories': categories})
 
 @login_required()
 def articles_category_list(request, category):
     articles = Article.objects.filter(category__slug=category, status='active')
     tags = Tag.objects.all()
     categories = Category.objects.all()
-    return render(request, 'blog/articles_filter.html', {'articles': articles, 'title': category, 'tags' : tags, 'filter': 'category', 'categories': categories})
+    return render(request, 'blog/articles_filter.html', {'page_articles': get_page_articles(request, articles, 3), 'title': category, 'tags' : tags, 'filter': 'category', 'categories': categories})
 
 @login_required()
 def search(request):
@@ -51,7 +57,7 @@ def search(request):
     articles = Article.objects.filter(Q(title__icontains=query) | Q(text__icontains=query) | Q(discription__icontains=query))
     tags = Tag.objects.all()
     categories = Category.objects.all()
-    return render(request, 'blog/search.html', {'articles': articles, 'title': 'Search through blog', 'query': query, 'tags' : tags, 'categories': categories})
+    return render(request, 'blog/search.html', {'page_articles': get_page_articles(request, articles, 3), 'title': 'Search through blog', 'query': query, 'tags' : tags, 'categories': categories})
 
 @login_required()
 def create(request):

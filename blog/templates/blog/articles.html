@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col">
             <div class="row row-cols-2 g-4">
-                {% for article in articles %}
+                {% for article in page_articles %}
                     <div class="col">
                         <div class="card border border-info">
                             {% if article.image %}
@@ -47,5 +47,7 @@
             </div>
         </div>
     </div>
+
+    {% include 'blog/navigation.html' %}
     
 {% endblock %}
